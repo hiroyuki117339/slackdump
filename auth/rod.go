@@ -175,6 +175,12 @@ func qrFlow(ctx context.Context, cl *slackauth.Client, ui browserAuthUIExt) (sp 
 	if err != nil {
 		return sp, err
 	}
+	// slackauth's QR decode expects a square image; screenshots are often not.
+	// Normalize by padding to square before passing down.
+	imageData, err = normalizePNGDataURL(imageData)
+	if err != nil {
+		return sp, err
+	}
 	tok, cook, err := cl.QRAuth(ctx, imageData)
 	if err != nil {
 		return sp, err

@@ -236,7 +236,7 @@ func valSixDigits(s string) error {
 }
 
 const (
-	maxEncImgSz = 7000
+	maxEncImgSz = 200000
 	imgPrefix   = "data:image/png;base64,"
 )
 
@@ -264,5 +264,5 @@ func (*Huh) RequestQR(ctx context.Context, _ io.Writer) (string, error) {
 	if err := q.Run(); err != nil {
 		return "", err
 	}
-	return imageData, nil
+	return strings.TrimSpace(imageData), nil
 }
